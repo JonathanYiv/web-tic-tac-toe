@@ -26,6 +26,28 @@ header h1 {
   color: #FBCA32;
 }
 
+/* Player Name Form */
+#name-form {
+  display: flex;
+  flex-direction: column;
+}
+
+p, p span {
+  font-size: 1.2em;
+  color: #FBCA32;
+}
+
+input {
+  margin-bottom: 1vh;
+  padding-left: 2em;
+}
+
+button {
+  background-color: #f28336;
+  border: .25em solid #ED2B33;
+  color: #FBCA32;
+}
+
 /* Tic Tac Toe Table */
 table {
   border-spacing: 1em;
