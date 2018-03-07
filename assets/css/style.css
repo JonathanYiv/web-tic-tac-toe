@@ -46,9 +46,31 @@ button {
   background-color: #f28336;
   border: .25em solid #ED2B33;
   color: #FBCA32;
+  transition: .25s;
+}
+
+button:hover {
+  border: .25em solid #5BFE44;
 }
 
 /* Tic Tac Toe Table */
+#game {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.player-1-score, .player-2-score {
+  font-size: 2.5em;
+  color: white;
+}
+
 table {
   border-spacing: 1em;
 }
