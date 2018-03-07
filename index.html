@@ -10,23 +10,23 @@
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
-    <main>
-      <header>
-        <h1>Tic-Tac-Toe</h1>
-      </header>
+    <header>
+      <h1>Tic-Tac-Toe</h1>
+    </header>
 
-      <section id="name-form">
-        <p>Enter your Names:</p>
-        <input type="text" placeholder="P1 Name" maxlength="18">
-        <input type="text" placeholder="P2 Name" maxlength="18">
-        <button>Battle!</button>
-      </section>
+    <section class="name-form">
+      <p>Enter your Names:</p>
+      <input type="text" placeholder="P1 Name" maxlength="18">
+      <input type="text" placeholder="P2 Name" maxlength="18">
+      <button>Battle!</button>
+    </section>
 
+    <main class="invisible">
       <p>
         <span class="current-player">P1</span>'s turn!
       </p>
 
-      <section id="game">
+      <section class="gameboard">
         <div class="score">
           <p>
             <span class="player-1-name">P1</span>'s Score
@@ -58,11 +58,12 @@
         </div>
       </section>
 
-      <section>
+      <section class="game-buttons">
         <button>Rematch</button>
         <button>New Game!</button>
       </section>
     </main>
+
     <script src="assets/js/tic-tac-toe.js"></script>
   </body>
 </html>
