@@ -1,8 +1,4 @@
 "use strict";
-// JavaScript function to render the array on the webpage
-// JavaScript DOM event handlers to add marks to the board
-// JavaScript function to check for win logic
-
 // Player Factory
 const playerFactory = (name, score = 0) => {
   return { name, score };
@@ -13,6 +9,8 @@ const playerOneNameDisplay = document.querySelector(".p1-name");
 const playerTwoNameDisplay = document.querySelector(".p2-name");
 const playerOneScoreDisplay = document.querySelector(".p1-score");
 const playerTwoScoreDisplay = document.querySelector(".p2-score");
+const currentPlayerDisplay = document.querySelector(".current-player");
+const victoryDisplay = document.querySelector(".turn-track");
 
 // Selecting Game/Start Screen Elements
 const nameForm = document.querySelector(".name-form");
@@ -25,16 +23,29 @@ const startButton = document.querySelector("#start");
 const restartButton = document.querySelector("#restart");
 const rematchButton = document.querySelector("#rematch");
 
+// Selecting Grid Elements
+const cells = document.querySelectorAll(".cell");
+
 // Tic Tac Toe Module
 const ticTacToe = (() => {
   const gameBoard = Array.from(' '.repeat(9));
   const currentPlayer = undefined;
+  const winConditions = [ [0,1,2],
+                          [0,4,8],
+                          [0,3,6],
+                          [3,4,5],
+                          [6,7,8],
+                          [6,4,2],
+                          [1,4,7],
+                          [8,5,2],
+                        ];
 
   const updateDisplay = () => {
     playerOneNameDisplay.textContent = ticTacToe.playerOne.name;
     playerOneScoreDisplay.textContent = ticTacToe.playerOne.score;
     playerTwoNameDisplay.textContent = ticTacToe.playerTwo.name;
     playerTwoScoreDisplay.textContent = ticTacToe.playerTwo.score;
+    currentPlayerDisplay.textContent = ticTacToe.currentPlayer.name;
   }
 
   const toggleDisplay = () => {
@@ -49,10 +60,29 @@ const ticTacToe = (() => {
     else {
       ticTacToe.currentPlayer = ticTacToe.playerOne;
     }
+    ticTacToe.updateDisplay();
   }
 
   const assignRandomStartingPlayer = () => {
     ticTacToe.currentPlayer = [ticTacToe.playerOne, ticTacToe.playerTwo][Math.floor(Math.random() * 2)];
+  }
+
+  const checkWinConditions = () => {
+    let won = false;
+    ticTacToe.winConditions.forEach(winCondition => {
+      if (ticTacToe.gameBoard[winCondition[0]] !== " " &&
+          ticTacToe.gameBoard[winCondition[0]] === ticTacToe.gameBoard[winCondition[1]] &&
+          ticTacToe.gameBoard[winCondition[1]] === ticTacToe.gameBoard[winCondition[2]] &&
+          ticTacToe.gameBoard[winCondition[0]] === ticTacToe.gameBoard[winCondition[2]]) {
+        won = true;
+      }
+    });
+    return won;
+  }
+
+  const endGame = () => {
+    ticTacToe.currentPlayer.score += 1;
+    victoryDisplay.textContent = " is victorious!";
   }
 
   return {
@@ -62,8 +92,31 @@ const ticTacToe = (() => {
     assignRandomStartingPlayer,
     currentPlayer,
     nextTurn,
+    winConditions,
+    checkWinConditions,
+    endGame,
   };
 })();
+
+// Cell Event Listeners
+cells.forEach(cell => {
+  cell.addEventListener("click", function(e) {
+    if(this.firstElementChild.textContent === "") {
+      if (ticTacToe.currentPlayer === ticTacToe.playerOne) {
+        this.firstElementChild.textContent = "x";
+        ticTacToe.gameBoard[this.dataset.position] = "x";
+      } else {
+        this.firstElementChild.textContent = "o";
+        ticTacToe.gameBoard[this.dataset.position] = "o";
+      }
+      if(ticTacToe.checkWinConditions()) {
+        ticTacToe.endGame();
+      } else {
+        ticTacToe.nextTurn();
+      }
+    }
+  });
+});
 
 // Start Button Event
 startButton.addEventListener("click", () => {
@@ -72,11 +125,20 @@ startButton.addEventListener("click", () => {
   const playerTwoName = playerTwoNameInput.value ? playerTwoNameInput.value : "P2";
   ticTacToe.playerOne = playerFactory(playerOneName);
   ticTacToe.playerTwo = playerFactory(playerTwoName);
-  ticTacToe.updateDisplay();
   ticTacToe.assignRandomStartingPlayer();
+  ticTacToe.updateDisplay();
+});
+
+// Restart Button Event -- not working
+restartButton.addEventListener("click", () => {
+  ticTacToe.toggleDisplay();
+  cells.forEach(cell => {
+    cell.textContent = "";
+  });
+  victoryDisplay.textContent = "'s turn!";
 });
 
 // Rematch Button Event
-restartButton.addEventListener("click", () => {
-  ticTacToe.toggleDisplay();
+rematchButton.addEventListener("click", () => {
+  // ...
 });
