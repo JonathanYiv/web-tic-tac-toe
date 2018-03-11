@@ -16,9 +16,9 @@
 
     <section class="name-form">
       <p>Enter your Names:</p>
-      <input type="text" placeholder="P1 Name" maxlength="18">
-      <input type="text" placeholder="P2 Name" maxlength="18">
-      <button>Battle!</button>
+      <input type="text" placeholder="P1 Name" maxlength="18" id="p1-name-input">
+      <input type="text" placeholder="P2 Name" maxlength="18" id="p2-name-input">
+      <button id="start">Battle!</button>
     </section>
 
     <main class="invisible">
@@ -29,38 +29,38 @@
       <section class="gameboard">
         <div class="score">
           <p>
-            <span class="player-1-name">P1</span>'s Score
+            <span class="p1-name">P1</span>'s Score
           </p>
-          <p class="player-1-score">0</p>
+          <p class="p1-score">0</p>
         </div>
         <table>
           <tr>
-            <td><span>o</span></td>
-            <td><span>x</span></td>
-            <td><span>x</span></td>
+            <td class="0"><span>o</span></td>
+            <td class="1"><span>x</span></td>
+            <td class="2"><span>x</span></td>
           </tr>
           <tr>
-            <td><span>x</span></td>
-            <td><span>o</span></td>
-            <td><span>x</span></td>
+            <td class="3"><span>x</span></td>
+            <td class="4"><span>o</span></td>
+            <td class="5"><span>x</span></td>
           </tr>
           <tr>
-            <td><span>x</span></td>
-            <td><span>x</span></td>
-            <td><span>o</span></td>
+            <td class="6"><span>x</span></td>
+            <td class="7"><span>x</span></td>
+            <td class="8"><span>o</span></td>
           </tr>
         </table>
         <div class="score">
           <p>
-            <span class="player-2-name">P2</span>'s Score
+            <span class="p2-name">P2</span>'s Score
           </p>
-          <p class="player-2-score">0</p>
+          <p class="p2-score">0</p>
         </div>
       </section>
 
       <section class="game-buttons">
-        <button>Rematch</button>
-        <button>New Game!</button>
+        <button id="rematch">Rematch</button>
+        <button id="restart">New Game!</button>
       </section>
     </main>
 
