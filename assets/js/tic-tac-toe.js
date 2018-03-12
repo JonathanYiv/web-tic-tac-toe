@@ -85,6 +85,33 @@ const ticTacToe = (() => {
     victoryDisplay.textContent = " is victorious!";
   }
 
+  const watchCells = () => {
+    cells.forEach(cell => {
+      cell.addEventListener("click", function(e) {
+        if(this.firstElementChild.textContent === "") {
+          if (ticTacToe.currentPlayer === ticTacToe.playerOne) {
+            this.firstElementChild.textContent = "x";
+            ticTacToe.gameBoard[this.dataset.position] = "x";
+          } else {
+            this.firstElementChild.textContent = "o";
+            ticTacToe.gameBoard[this.dataset.position] = "o";
+          }
+          if(ticTacToe.checkWinConditions()) {
+            ticTacToe.endGame();
+          } else {
+            ticTacToe.nextTurn();
+          }
+        }
+      });
+    });
+  }
+
+  const startGame = () => {
+    ticTacToe.assignRandomStartingPlayer();
+    ticTacToe.updateDisplay();
+    ticTacToe.watchCells();
+  }
+
   return {
     gameBoard,
     updateDisplay,
@@ -95,28 +122,10 @@ const ticTacToe = (() => {
     winConditions,
     checkWinConditions,
     endGame,
+    startGame,
+    watchCells,
   };
 })();
-
-// Cell Event Listeners
-cells.forEach(cell => {
-  cell.addEventListener("click", function(e) {
-    if(this.firstElementChild.textContent === "") {
-      if (ticTacToe.currentPlayer === ticTacToe.playerOne) {
-        this.firstElementChild.textContent = "x";
-        ticTacToe.gameBoard[this.dataset.position] = "x";
-      } else {
-        this.firstElementChild.textContent = "o";
-        ticTacToe.gameBoard[this.dataset.position] = "o";
-      }
-      if(ticTacToe.checkWinConditions()) {
-        ticTacToe.endGame();
-      } else {
-        ticTacToe.nextTurn();
-      }
-    }
-  });
-});
 
 // Start Button Event
 startButton.addEventListener("click", () => {
@@ -125,8 +134,7 @@ startButton.addEventListener("click", () => {
   const playerTwoName = playerTwoNameInput.value ? playerTwoNameInput.value : "P2";
   ticTacToe.playerOne = playerFactory(playerOneName);
   ticTacToe.playerTwo = playerFactory(playerTwoName);
-  ticTacToe.assignRandomStartingPlayer();
-  ticTacToe.updateDisplay();
+  ticTacToe.startGame();
 });
 
 // Restart Button Event -- not working
@@ -138,7 +146,11 @@ restartButton.addEventListener("click", () => {
   victoryDisplay.textContent = "'s turn!";
 });
 
-// Rematch Button Event
+// Rematch Button Event -- not working
 rematchButton.addEventListener("click", () => {
-  // ...
+  cells.forEach(cell => {
+    cell.textContent = "";
+  });
+  victoryDisplay.textContent = "'s turn!";
+  ticTacToe.startGame();
 });
