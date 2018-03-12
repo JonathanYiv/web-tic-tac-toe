@@ -8,7 +8,7 @@ This project builds a simple tic-tac-toe game in the browser. It will have:
 
 This is a project from [The Odin Project](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript).
 
-Screenshot...
+![Screenshot of Game](assets/images/screenshot.png)
 
 ## Pre-Project Thoughts
 
@@ -16,4 +16,5 @@ Last lesson threw a lot of big JavaScript words at me. Now's the time to use som
 
 ## Post-Project Thoughts
 
-Pending...
+Learned a lot about what NOT to do and wrote some messy code in the process.
+I have a much better understanding of event listeners, modules, and factories now though.
