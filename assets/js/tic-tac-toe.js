@@ -28,7 +28,7 @@ const cells = document.querySelectorAll(".cell");
 
 // Tic Tac Toe Module
 const ticTacToe = (() => {
-  const gameBoard = Array.from(' '.repeat(9));
+  let gameBoard = Array.from(' '.repeat(9));
   const currentPlayer = undefined;
   const winConditions = [ [0,1,2],
                           [0,4,8],
@@ -87,23 +87,37 @@ const ticTacToe = (() => {
 
   const watchCells = () => {
     cells.forEach(cell => {
-      cell.addEventListener("click", function(e) {
-        if(this.firstElementChild.textContent === "") {
-          if (ticTacToe.currentPlayer === ticTacToe.playerOne) {
-            this.firstElementChild.textContent = "x";
-            ticTacToe.gameBoard[this.dataset.position] = "x";
-          } else {
-            this.firstElementChild.textContent = "o";
-            ticTacToe.gameBoard[this.dataset.position] = "o";
-          }
-          if(ticTacToe.checkWinConditions()) {
-            ticTacToe.endGame();
-          } else {
-            ticTacToe.nextTurn();
-          }
-        }
-      });
+      cell.addEventListener("click", fillCell);
     });
+  }
+
+  function fillCell() {
+    console.log(this);
+    if(this.firstElementChild.textContent === "") {
+      if (ticTacToe.currentPlayer === ticTacToe.playerOne) {
+        this.firstElementChild.textContent = "x";
+        ticTacToe.gameBoard[this.dataset.position] = "x";
+      } else {
+        this.firstElementChild.textContent = "o";
+        ticTacToe.gameBoard[this.dataset.position] = "o";
+      }
+      if(ticTacToe.checkWinConditions()) {
+        ticTacToe.endGame();
+      } else {
+        ticTacToe.nextTurn();
+      }
+    }
+  }
+
+  const resetGame = () => {
+    cells.forEach(cell => {
+      cell.firstElementChild.textContent = "";
+      cell.removeEventListener("click", fillCell);
+    });
+    victoryDisplay.textContent = "'s turn!";
+    console.log(ticTacToe.gameBoard);
+    ticTacToe.gameBoard = Array.from(' '.repeat(9));
+    console.log(ticTacToe.gameBoard);
   }
 
   const startGame = () => {
@@ -124,6 +138,7 @@ const ticTacToe = (() => {
     endGame,
     startGame,
     watchCells,
+    resetGame,
   };
 })();
 
@@ -137,20 +152,14 @@ startButton.addEventListener("click", () => {
   ticTacToe.startGame();
 });
 
-// Restart Button Event -- not working
+// Restart Button Event
 restartButton.addEventListener("click", () => {
+  ticTacToe.resetGame();
   ticTacToe.toggleDisplay();
-  cells.forEach(cell => {
-    cell.textContent = "";
-  });
-  victoryDisplay.textContent = "'s turn!";
 });
 
-// Rematch Button Event -- not working
+// Rematch Button Event
 rematchButton.addEventListener("click", () => {
-  cells.forEach(cell => {
-    cell.textContent = "";
-  });
-  victoryDisplay.textContent = "'s turn!";
+  ticTacToe.resetGame();
   ticTacToe.startGame();
 });
