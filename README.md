@@ -1,10 +1,11 @@
 # Library Project
 
 This project builds a simple tic-tac-toe game in the browser. It will have:
-* Unbeatable AI
 * Winning Screen
 * Continuous Games without Refresh
 * Name Input
+
+You can play it [here](https://jonathanyiv.github.io/web-tic-tac-toe/).
 
 This is a project from [The Odin Project](https://www.theodinproject.com/courses/javascript/lessons/tic-tac-toe-javascript).
 
